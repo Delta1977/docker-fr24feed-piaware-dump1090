@@ -180,6 +180,7 @@ RUN set -x && \
     cd /tmp && \
     apt-get download rbfeeder && \
     # extract rbfeeder deb
+    ar xv ./rbfeeder_*armhf.deb && \
     tar xvf ./data.tar.xz -C / && \
     # mlat-client
     SRCTMP=/srctmp && \
