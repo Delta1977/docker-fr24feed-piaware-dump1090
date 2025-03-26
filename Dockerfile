@@ -152,7 +152,6 @@ ENV RADARBOX_MLAT_VERSION v0.2.13
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /tmp
 RUN set -x && \
-    
     apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \
         ca-certificates \
@@ -182,7 +181,6 @@ RUN set -x && \
     cd /tmp && \
     apt-get download rbfeeder && \
     # extract rbfeeder deb
-
     tar xvf ./data.tar.xz -C / && \
     # mlat-client
     SRCTMP=/srctmp && \
@@ -209,7 +207,8 @@ RUN set -x && \
         build-essential
 ARG TARGETARCH
 RUN if [ $TARGETARCH != "arm" ]; then \
-        make \
+        apt-get install -y crossbuild-essential-armhf && \
+        make CC=arm-linux-gnueabihf-gcc \
     ; else \
         make \
     ; fi
@@ -255,7 +254,6 @@ RUN mv /copy_root/tcltls-rebuild/tcl-tls_*.deb /copy_root/tcl-tls.deb && \
     rm -rf /copy_root/tcltls-rebuild
 COPY --from=thttpd /thttpd/thttpd /copy_root/
 COPY --from=confd /opt/confd/bin/confd /copy_root/opt/confd/bin/
-
 COPY --from=radarbox /usr/bin/dump1090-rb /copy_root/usr/bin/dump1090-rbs
 COPY --from=radarbox /usr/local/share/radarbox-mlat-client /copy_root/usr/local/share/radarbox-mlat-client
 COPY --from=rbfeeder_fixcputemp ./librbfeeder_fixcputemp.so /copy_root/usr/lib/arm-linux-gnueabihf/librbfeeder_fixcputemp.so
@@ -267,7 +265,7 @@ ENV DEBIAN_VERSION bullseye
 ENV RTL_SDR_VERSION 0.6.0
 
 ENV FR24FEED_AMD64_VERSION 1.0.44-0
-
+ENV FR24FEED_ARMHF_VERSION 1.0.44-0
 ENV FR24FEED_ARMEL_VERSION 1.0.44-0
 
 ENV PLANEFINDER_AMD64_VERSION 5.0.162
@@ -299,7 +297,8 @@ COPY --from=copyall /copy_root/ /
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN apt-get update && \
+RUN 
+    apt-get update && \
     apt-get install -y libc6 libstdc++6 libusb-1.0-0 lsb-base && \
     ldconfig && \
     apt-get update && \
