@@ -349,7 +349,7 @@ RUN apt-get update && \
     netbase \
     && \
     # Simple checks qemu
-    qemu-arm-static --version && \
+   
     qemu-aarch64-static --version && \
     # RTL-SDR
     cd /tmp && \
