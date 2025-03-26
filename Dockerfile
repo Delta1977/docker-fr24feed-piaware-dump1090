@@ -165,22 +165,22 @@ RUN set -x && \
         python3-distutils \
         python3-venv \
         libpython3-dev \
-        libc6:armhf \
-        libcurl4:armhf \
-        libglib2.0-0:armhf \
-        libjansson4:armhf \
-        libprotobuf-c1:armhf \
-        librtlsdr0:armhf \
+        libc6 \
+        libcurl4 \
+        libglib2.0-0 \
+        libjansson4 \
+        libprotobuf-c1 \
+        librtlsdr0 \
         netbase \
         xz-utils  && \
     rm -rf /var/lib/apt/lists/* && \
-    dpkg --add-architecture armhf && \
+
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1D043681 && \
     bash -c "echo 'deb https://apt.rb24.com/ bullseye main' > /etc/apt/sources.list.d/rb24.list" && \
     apt-get update && \
     # download rbfeeder deb
     cd /tmp && \
-    apt-get download rbfeeder:armhf && \
+    apt-get download rbfeeder && \
     # extract rbfeeder deb
     ar xv ./rbfeeder_*armhf.deb && \
     tar xvf ./data.tar.xz -C / && \
@@ -302,7 +302,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN dpkg --add-architecture armhf && \
     apt-get update && \
-    apt-get install -y libc6:armhf libstdc++6:armhf libusb-1.0-0:armhf lsb-base:armhf && \
+    apt-get install -y libc6 libstdc++6 libusb-1.0-0 lsb-base && \
     ldconfig && \
     apt-get update && \
     # rtl-sdr
@@ -344,11 +344,11 @@ RUN dpkg --add-architecture armhf && \
     build-essential \
     python3-minimal \
     python3-distutils \
-    libcurl4:armhf \
-    libglib2.0-0:armhf \
-    libjansson4:armhf \
-    libprotobuf-c1:armhf \
-    librtlsdr0:armhf \
+    libcurl4 \
+    libglib2.0-0 \
+    libjansson4 \
+    libprotobuf-c1 \
+    librtlsdr0 \
     netbase \
     && \
     # Simple checks qemu
