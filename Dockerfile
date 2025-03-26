@@ -349,7 +349,6 @@ RUN apt-get update && \
     netbase \
     && \
     # Simple checks qemu
-   
     qemu-aarch64-static --version && \
     # RTL-SDR
     cd /tmp && \
