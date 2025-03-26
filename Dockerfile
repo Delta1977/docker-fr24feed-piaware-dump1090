@@ -209,7 +209,7 @@ RUN set -x && \
         build-essential
 ARG TARGETARCH
 RUN if [ $TARGETARCH != "arm" ]; then \
- 
+        make \
     ; else \
         make \
     ; fi
