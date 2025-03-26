@@ -152,6 +152,7 @@ ENV RADARBOX_MLAT_VERSION v0.2.13
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /tmp
 RUN set -x && \
+    dpkg --add-architecture armhf && \
     apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \
         ca-certificates \
