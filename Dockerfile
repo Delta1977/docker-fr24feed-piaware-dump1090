@@ -296,8 +296,7 @@ COPY --from=copyall /copy_root/ /
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN 
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y libc6 libstdc++6 libusb-1.0-0 lsb-base && \
     ldconfig && \
     apt-get update && \
